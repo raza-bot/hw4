@@ -1,0 +1,19 @@
+{
+    "name": "sjsu_174/hw4",
+    "description": "jigsaw puzzle",
+    "authors": [
+        {
+            "name": "students",
+            "email": "example@sjsu.edu"
+        }
+    ],
+    "require": {
+            "phpunit/phpunit" : ">=9.0.0",
+            "seekquarry/yioop": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "sjsu_174\\hw4\\": ["src/"]
+        }
+    }
+}
