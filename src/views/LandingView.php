@@ -2,6 +2,7 @@
 
 namespace sjsu_174\hw4\src\views;
 
+
 class LandingView {
 
 	function display() {
@@ -11,11 +12,18 @@ class LandingView {
 		<html lang="en">
 		  <head>
 		    <meta charset="UTF-8">
-		    <title>Movie Reviews</title>
+		    <title>Landing View</title>
+	      <link rel="stylesheet" href="./src/styles/style.css">
 		  </head>
 		  <body>
 		    <main>
-		    <h1><a href="./index.php">Upload</a></h1>
+					<form>
+		    		<h1><a href="">Community Jigsaw</a></h1>
+						<label for='upload'>New Image: </label>
+						<input type='file' id='upload' />
+						<button type='submit'>upload</button>
+					</form>
+
 			</main>
 		  </body>
 		</html>
