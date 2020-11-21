@@ -64,12 +64,54 @@
 	  echo "Sorry, your file was not uploaded.";
 	// if everything is ok, try to upload file
 	} else {
-    
-	  if (move_uploaded_file($_FILES["img"]["tmp_name"], $target_file)) //moves the uploaded file to destination 
+		
+		$file_name = $_FILES["img"]["tmp_name"]; 
+		$check = getimagesize($file_name);
+		$resizefileName = time(); 
+		//upload path above, ext above
+		$file = ''; 
+		$sourceImgW = $check[0]; 
+		$sourceImgH = $check[1]; 
+		$sourceImgType = $check[2]; 
+		switch ($sourceImgType) {
+			case IMAGETYPE_JPEG:
+					 $resourceType = imagecreatefromjpeg($file_name); 
+					 $imagelayer = convertImage($resourceType, $sourceImgW, $sourceImgH); 
+					 $file = imagejpeg($imagelayer, $target_dir."resize".$resizefileName.".".$imageFileType); 
+					break;
+			case IMAGETYPE_GIF:
+					 $resourceType = imagecreatefromgif($file_name); 
+					 $imagelayer = convertImage($resourceType, $sourceImgW, $sourceImgH); 
+					 $file = imagegif($imagelayer, $target_dir."resize".$resizefileName.".".$imageFileType); 
+					break;
+			case IMAGETYPE_PNG:
+					 $resourceType = imagecreatefrompng($file_name); 
+					 $imagelayer = convertImage($resourceType, $sourceImgW, $sourceImgH); 
+					 $file = imagepng($imagelayer, $target_dir."resize".$resizefileName.".".$imageFileType); 
+					break;
+			default:
+				$uploadOk = 0; 
+				break;
+		}
+
+		if (!$uploadOk) {
+			echo "image not supported"; 
+			return; 
+		}
+	 
+	  if (!move_uploaded_file($file, $target_file)) //moves the uploaded file to destination 
 	  {
 	    echo "The file ". basename( $_FILES["img"]["name"]). " has been uploaded.";
 	  } else {
 	    echo "Sorry, there was an error uploading your file.";
 	  }
+	}
+
+	function convertImage($resourceType, $iw, $ih) {
+		$desireW = 360; 
+		$desireH = 360; 
+		$imgLayer = imagecreatetruecolor($desireW, $desireH); 
+		imagecopyresampled($imgLayer, $resourceType,0,0,0,0, $desireW, $desireH, $iw, $ih); 
+		return $imgLayer; 
 	}
 ?>
