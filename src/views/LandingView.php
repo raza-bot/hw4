@@ -17,17 +17,18 @@ class LandingView {
 
 			<p id="demo">Testing</p>
 		    <main>
-					<form>
+					<form action='./src/controllers/upload.php'
+					 method="POST" enctype="multipart/form-data">
 		    		<h1><a href="">Community Jigsaw</a></h1>
-						<label for='upload'>New Image: </label>
-						<input type="file" id="myFile" multiple size="50" onchange="myFunction()">
-						<button type='submit'>upload</button>
+						<label for='img'>New Image: </label>
+						<input type="file" name ='img' id="img" onchange="myFunction()">
+						<input type="submit" name="submit">
 					</form>
 
 			</main>
 			<script>
 					function myFunction(){
-						var x = document.getElementById("myFile");
+						var x = document.getElementById("img");
 						var txt = "";
 						if ('files' in x) {
 						
@@ -40,8 +41,9 @@ class LandingView {
 											file.type == "image/png" || 
 											file.type == 'image/gif') {
 												var imgSize = file.size /1000000; 
-												if (imgSize > 2) {
+												if (imgSize > 1) {
 													txt = "file is too big"; 
+													return; 
 												}
 												txt = "file is valid"; 
 											} else {
@@ -60,6 +62,5 @@ class LandingView {
 			
 		</html>
 		<?php
-	}
-	
+	}	
 }
