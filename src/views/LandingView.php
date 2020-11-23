@@ -1,5 +1,5 @@
 <?php
-namespace sjsu_174\hw4\src\views;
+namespace hw4\src\views;
 
 
 class LandingView {
@@ -31,36 +31,36 @@ class LandingView {
 						var x = document.getElementById("img");
 						var txt = "";
 						if ('files' in x) {
-						
+
 							if (x.files.length == 0) {
 								txt = "Select one or more files.";
 							} else {
 									var file = x.files[0];
 									console.log(file);
-									if (file.type == "image/jpeg" || 
-											file.type == "image/png" || 
+									if (file.type == "image/jpeg" ||
+											file.type == "image/png" ||
 											file.type == 'image/gif') {
-												var imgSize = file.size /1000000; 
+												var imgSize = file.size /1000000;
 												if (imgSize > 1) {
-													txt = "file is too big"; 
-													return; 
+													txt = "file is too big";
+													return;
 												}
-												txt = "file is valid"; 
+												txt = "file is valid";
 											} else {
-												txt = "file is not supported"; 
+												txt = "file is not supported";
 											}
 							}
 						} else {
 								if (x.value == "") {
 									txt += "Select one or more files.";
-								} 
+								}
 						}
 						document.getElementById("demo").innerHTML = txt;
 					}
 					</script>
 		  </body>
-			
+
 		</html>
 		<?php
-	}	
+	}
 }

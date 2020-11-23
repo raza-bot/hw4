@@ -1,0 +1,2 @@
+Uploaded file keeps making new files instead of replacing the current image.
+-Justin changed code in 'upload.php', it now replaces the current image with the uploaded.
