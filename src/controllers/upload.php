@@ -1,7 +1,7 @@
  <?php
 
 //Note: first of all create folder 'uploads' and change its permission. To do so, go to terminal and write: sudo chmod -R 777 ~/.bitnami/stackman/machines/xampp/volumes/root/htdocs/php/uploads. and then enter. restart apache server (sudo apachectl restart). Also change file_uploads = on in php.ini file.
-
+  include_once("puzzle.php");
 
 	$target_dir = "uploads/"; //name of the directory where image will be loaded. Make sure the folder 'uploads' is in the same directory as the php file.
   $target_file = $target_dir . basename($_FILES["img"]["name"]);
@@ -30,9 +30,13 @@
 	if(isset($_POST["submit"])) {
     $check = getimagesize($_FILES["img"]["tmp_name"]);
 
+    foreach(glob("uploads/*") as $img)
+    {
+      unlink($img);
+    }
     //getimagesize(path): returns an array with image size, width and height, and file type. it RETURNS 0 if no image or multiple image.
 	  if($check !== false) {
-	    echo "File is an image - " . $check["mime"] . ".   "; //file extension: check["mime"]
+	  //  echo "File is an image - " . $check["mime"] . ".   "; //file extension: check["mime"]
 	    $uploadOk = 1;
 	  } else {
 	    echo "File is not an image.";
@@ -40,12 +44,8 @@
 	  }
 	}
 
-/*		// Check if file already exists
-	if (file_exists($target_file)) {
-	  echo "Sorry, file already exists.";
-	  $uploadOk = 0;
-	}
-*/
+		// Check if file already exists
+
 
 	// Check file size
 	if ($_FILES["img"]["size"] > 2000000) {
@@ -102,8 +102,10 @@
 
 	  if (!move_uploaded_file($file, $target_file)) //moves the uploaded file to destination
 	  {
-	    echo "The file ". basename( $_FILES["img"]["name"]). " has been uploaded.";
-	  } else {
+      $view = new puzzle();
+      $view -> render();
+	  }
+     else {
 	    echo "Sorry, there was an error uploading your file.";
 	  }
 	}
